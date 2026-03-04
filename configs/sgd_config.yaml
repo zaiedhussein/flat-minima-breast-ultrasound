@@ -1,0 +1,47 @@
+# ============================================================
+# Configuration — SGD vs SAM+SGD experiments
+# ============================================================
+# This file defines all hyperparameters for Experiments 2 & 4
+# (SGD base optimizer, with and without SAM wrapper).
+#
+# Note: SGD requires ~10x higher learning rates than Adam
+# because it lacks adaptive per-parameter scaling.
+# ============================================================
+
+# --- Data ---
+IMG_SIZE: 224
+BATCH_SIZE: 32
+
+# --- Training schedule ---
+WARMUP_EPOCHS: 5       # Phase 1: train only head (backbone frozen)
+FINETUNE_EPOCHS: 25    # Phase 2: train all layers with discriminative LRs
+                        # Total epochs = 5 + 25 = 30
+
+# --- Discriminative learning rates (SGD scale — 10× of Adam) ---
+HEAD_LR:  1.0e-2       # classifier head
+LATE_LR:  1.0e-3       # late backbone layers
+MID_LR:   1.0e-4       # middle backbone layers
+EARLY_LR: 1.0e-5       # early backbone layers
+
+# --- Regularisation ---
+WEIGHT_DECAY: 1.0e-4
+LABEL_SMOOTHING: 0.1   # label smoothing synergises with SAM
+GRAD_CLIP: 1.0          # gradient clipping stabilises higher SGD LRs
+
+# --- SGD-specific ---
+MOMENTUM: 0.9
+NESTEROV: true
+
+# --- SAM ---
+SAM_RHO: 0.10          # doubled from Adam's 0.05 for more aggressive
+                        # flat-minima search with SGD
+
+# --- Loss landscape analysis ---
+SHARPNESS_PERTURBATION_RADIUS: 0.10
+SHARPNESS_NUM_SAMPLES: 10
+INFERENCE_BENCHMARK_ITERS: 100
+
+# --- Augmentation ---
+TRAIN_AUGMENTATION: "strong"
+#   basic:  RandomResizedCrop + RandomHorizontalFlip
+#   strong: + VerticalFlip(0.3), Rotation(15), ColorJitter, RandomErasing(0.2)

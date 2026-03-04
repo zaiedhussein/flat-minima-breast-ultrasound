@@ -1,0 +1,39 @@
+# ============================================================
+# Configuration — Adam vs SAM+Adam experiments
+# ============================================================
+# This file defines all hyperparameters for Experiments 1 & 3
+# (Adam base optimizer, with and without SAM wrapper).
+# ============================================================
+
+# --- Data ---
+IMG_SIZE: 224
+BATCH_SIZE: 32
+
+# --- Training schedule ---
+WARMUP_EPOCHS: 5       # Phase 1: train only head (backbone frozen)
+FINETUNE_EPOCHS: 25    # Phase 2: train all layers with discriminative LRs
+                        # Total epochs = 5 + 25 = 30
+
+# --- Discriminative learning rates (Adam scale) ---
+HEAD_LR:  1.0e-3       # classifier head
+LATE_LR:  1.0e-4       # late backbone layers
+MID_LR:   1.0e-5       # middle backbone layers
+EARLY_LR: 1.0e-6       # early backbone layers
+
+# --- Regularisation ---
+WEIGHT_DECAY: 1.0e-4
+LABEL_SMOOTHING: 0.0   # no label smoothing for Adam experiments
+GRAD_CLIP: null         # no gradient clipping for Adam experiments
+
+# --- SAM ---
+SAM_RHO: 0.05          # perturbation radius for SAM+Adam
+
+# --- Loss landscape analysis ---
+SHARPNESS_PERTURBATION_RADIUS: 0.05
+SHARPNESS_NUM_SAMPLES: 10
+INFERENCE_BENCHMARK_ITERS: 100
+
+# --- Augmentation ---
+TRAIN_AUGMENTATION: "basic"
+#   basic:  RandomResizedCrop + RandomHorizontalFlip
+#   strong: + VerticalFlip, Rotation(15), ColorJitter, RandomErasing(0.2)
