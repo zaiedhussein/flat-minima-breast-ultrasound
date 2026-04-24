@@ -223,10 +223,25 @@ Each experiment produces:
 
 ---
 
-## Citation
+##  Citation
 
-If you use this code, please cite:
-Alhaj, Z., Ozturk, M. & Alsharafi, M. Favoring flat minima improves generalization of transfer-learned models for breast ultrasound tumor classification. Sci Rep (2026). https://doi.org/10.1038/s41598-026-49376-4
+If you use this code or dataset in your research, please cite the following article:
+
+> Alhaj, Z., Ozturk, M., & Alsharafi, M.  
+> *Favoring flat minima improves generalization of transfer-learned models for breast ultrasound tumor classification.*  
+> Scientific Reports, 2026.  
+> https://doi.org/10.1038/s41598-026-49376-4
+
+### BibTeX
+```bibtex
+@article{Alhaj2026FlatMinima,
+  author    = {Alhaj, Zaied and Ozturk, Mehmet and Alsharafi, Mohammed},
+  title     = {Favoring flat minima improves generalization of transfer-learned models for breast ultrasound tumor classification},
+  journal   = {Scientific Reports},
+  year      = {2026},
+  doi       = {10.1038/s41598-026-49376-4}
+}
+
 
 ## Acknowledgements
 
